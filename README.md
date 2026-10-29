@@ -197,13 +197,3 @@ A licença será definida pelos responsáveis pelo projeto.
   <br />
   Informação para compreender. Iniciativa para transformar.
 </p>
-
-
-
-
-
-
-
-
-
-<img width="296" height="326" alt="image" src="https://github.com/user-attachments/assets/d6509b15-2dec-44c6-b1ac-a3165bd2dce5" />
