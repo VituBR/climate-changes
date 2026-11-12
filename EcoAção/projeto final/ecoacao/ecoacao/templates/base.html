@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123f32">
+  <meta name="description" content="EcoAção — informação ambiental para transformar realidades.">
+  <title>{% block titulo %}EcoAção{% endblock %} | EcoAção</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="brand" href="{{ url_for('index') }}" aria-label="EcoAção - início">
+      <span class="brand-mark">✳</span><span>eco<span class="brand-light">ação</span><small>INFORMAÇÃO QUE MOVE</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" onclick="document.querySelector('.main-nav').classList.toggle('is-open'); this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') !== 'true')">☰</button>
+    <nav class="main-nav">
+      <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Início</a>
+      <a href="{{ url_for('ongs') }}" class="{% if request.endpoint in ['ongs','ong_nova'] %}active{% endif %}">Organizações</a>
+      <a href="{{ url_for('fontes') }}" class="{% if request.endpoint == 'fontes' %}active{% endif %}">Sobre os dados</a>
+      <a class="nav-cta" href="{{ url_for('index') }}#pesquisa">Fazer diagnóstico <span>↗</span></a>
+    </nav>
+  </div>
+</header>
+<main class="page-shell">
+  {% with mensagens = get_flashed_messages() %}
+    {% for m in mensagens %}<div class="flash-message"><span>✓</span>{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block conteudo %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a class="brand footer-brand" href="{{ url_for('index') }}"><span class="brand-mark">✳</span><span>eco<span class="brand-light">ação</span><small>INFORMAÇÃO QUE MOVE</small></span></a>
+    <p>Pequenas atitudes. Grandes transformações.</p>
+    <span class="copyright">Projeto educacional · 2026</span>
+  </div>
+  <div class="credits">Dados: Climate TRACE (CC BY 4.0) e OpenStreetMap/Nominatim (© colaboradores do OpenStreetMap, ODbL). Emissões são estimativas.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Organizações ambientais{% endblock %}
+{% block conteudo %}
+<section class="inner-hero small-hero"><a class="back-link" href="{{ url_for('index') }}">← Voltar ao início</a><span class="eyebrow">REDE DE TRANSFORMAÇÃO</span><h1>Quem cuida do<br><em>nosso planeta.</em></h1><p>Conheça organizações ambientais, suas causas e formas de participação.</p></section>
+<section class="content-section">
+  <div class="directory-toolbar"><form class="filter-form" method="get"><label for="q">ENCONTRE UMA ORGANIZAÇÃO</label><div class="filter-input"><input id="q" type="text" name="q" value="{{ q }}" maxlength="100" placeholder="Nome, causa ou região..."><button type="submit" aria-label="Buscar">⌕</button></div></form><a class="button button-primary" href="{{ url_for('ong_nova') }}">+ Cadastrar ONG</a></div>
+  {% if not lista %}<div class="empty-state"><div class="empty-icon">✳</div><h2>Nenhuma organização encontrada</h2><p>Tente outro termo ou cadastre uma nova organização.</p><a class="text-link" href="{{ url_for('ongs') }}">Limpar busca <span>↗</span></a></div>
+  {% else %}<div class="org-grid directory-grid">{% for o in lista %}<article class="org-card directory-card"><div class="org-card-top"><span class="org-icon">✳</span>{% if not o.verificada %}<span class="status-tag">Não verificada</span>{% else %}<span class="status-tag verified">Verificada</span>{% endif %}</div><h3>{{ o.nome }}</h3><p>{{ o.descricao }}</p><div class="org-details"><div><span>CAUSAS</span><strong>{{ o.causas or 'Não informado' }}</strong></div><div><span>REGIÃO</span><strong>{{ o.regiao or 'Não informada' }}</strong></div>{% if o.participacao %}<div><span>COMO PARTICIPAR</span><strong>{{ o.participacao }}</strong></div>{% endif %}</div>{% if o.site %}<a class="text-link" href="{{ o.site }}" target="_blank" rel="noopener noreferrer">Acessar site oficial <span>↗</span></a>{% endif %}</article>{% endfor %}</div>{% endif %}
+</section>
+{% endblock %}

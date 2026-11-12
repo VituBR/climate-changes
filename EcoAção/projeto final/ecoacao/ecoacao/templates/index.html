@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %}Início{% endblock %}
+{% block conteudo %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="eyebrow-dot"></span> CONSCIÊNCIA AMBIENTAL EM AÇÃO</span>
+    <h1>O futuro começa<br>com <em>informação.</em></h1>
+    <p class="hero-lead">Descubra dados sobre emissões de gases de efeito estufa e encontre organizações que trabalham por um planeta melhor.</p>
+    <a class="text-link" href="#pesquisa">Explore os dados <span>↓</span></a>
+  </div>
+  <div class="hero-art" aria-label="Ilustração de planeta e folhas">
+    <div class="sun-glow"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    <div class="planet"><span class="planet-land land-one"></span><span class="planet-land land-two"></span><span class="planet-land land-three"></span></div>
+    <span class="leaf leaf-a">❧</span><span class="leaf leaf-b">❧</span><span class="art-star star-a">✳</span><span class="art-star star-b">✦</span>
+    <div class="art-caption"><strong>Nosso planeta,</strong><br>nossa responsabilidade.</div>
+  </div>
+  <div class="hero-bottom"><span>01 / CONHECER</span><span>02 / COMPREENDER</span><span>03 / TRANSFORMAR</span></div>
+</section>
+
+<section class="search-section" id="pesquisa">
+  <div class="section-heading">
+    <span class="eyebrow">COMECE POR AQUI</span>
+    <h2>Explore o impacto ambiental<br>de uma região.</h2>
+    <p>Pesquise uma cidade ou região. Vamos identificar o país correspondente e consultar os dados disponíveis.</p>
+  </div>
+  <form class="search-card" action="{{ url_for('buscar') }}" method="get">
+    <div class="search-icon">⌕</div>
+    <div class="field-group location-field"><label for="q">CIDADE OU REGIÃO</label><input id="q" type="text" name="q" maxlength="100" minlength="2" placeholder="Ex.: Rio de Janeiro, Brasil" required></div>
+    <div class="field-group year-field"><label for="ano">ANO DOS DADOS</label><select id="ano" name="ano">{% for a in range(ANO_MAX, ANO_MIN - 1, -1) %}<option value="{{ a }}" {% if a == ANO_PADRAO %}selected{% endif %}>{{ a }}</option>{% endfor %}</select></div>
+    <button class="button button-primary search-button" type="submit">Pesquisar <span>↗</span></button>
+  </form>
+  <p class="form-note"><span>ⓘ</span> Os dados de emissões são apresentados em nível nacional. A cidade indica qual país será consultado.</p>
+</section>
+
+<section class="steps-section">
+  <div class="section-heading compact-heading"><span class="eyebrow">COMO FUNCIONA</span><h2>Informação em três passos.</h2></div>
+  <div class="steps-grid">
+    <article class="step-card"><span class="step-number">01</span><div class="step-icon">⌕</div><h3>Pesquise</h3><p>Informe uma cidade ou região para localizar o país correspondente.</p></article>
+    <article class="step-card"><span class="step-number">02</span><div class="step-icon">▥</div><h3>Entenda os dados</h3><p>Consulte estimativas de emissões e, quando disponível, a divisão por setores.</p></article>
+    <article class="step-card"><span class="step-number">03</span><div class="step-icon">♡</div><h3>Encontre iniciativas</h3><p>Conheça organizações ambientais e descubra formas de participar.</p></article>
+  </div>
+</section>
+
+<section class="callout-band"><div><span class="eyebrow">CONHECIMENTO TAMBÉM É AÇÃO</span><h2>Conheça quem já está<br>fazendo a diferença.</h2></div><a class="button button-light" href="{{ url_for('ongs') }}">Ver organizações <span>↗</span></a></section>
+{% endblock %}

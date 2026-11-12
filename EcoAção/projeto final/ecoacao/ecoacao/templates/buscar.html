@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Resultados da pesquisa{% endblock %}
+{% block conteudo %}
+<section class="inner-hero small-hero"><a class="back-link" href="{{ url_for('index') }}">← Voltar ao início</a><span class="eyebrow">PESQUISA DE LOCALIZAÇÃO</span><h1>Encontramos estes<br><em>resultados.</em></h1><p>Resultados para <strong>“{{ q }}”</strong>. Selecione o local correto para consultar o diagnóstico do país.</p></section>
+<section class="content-section">
+{% if not locais %}
+  <div class="empty-state"><div class="empty-icon">⌕</div><h2>Nenhum local encontrado</h2><p>Tente pesquisar com outro nome ou confira a grafia da cidade.</p><a class="button button-primary" href="{{ url_for('index') }}#pesquisa">Nova pesquisa</a></div>
+{% else %}
+  <div class="results-top"><div><span class="eyebrow">LOCAIS LOCALIZADOS</span><h2>{{ locais|length }} resultado(s)</h2></div><span class="result-year">Ano selecionado: {{ ano }}</span></div>
+  <div class="location-list">
+  {% for l in locais %}
+    <article class="location-card"><div class="location-symbol">⌖</div><div class="location-info"><h3>{{ l.cidade or l.nome.split(',')[0] }}</h3><p>{{ l.estado }}{% if l.estado and l.pais %}, {% endif %}{{ l.pais or 'País não identificado' }}</p><small>{{ l.nome }}</small></div><div class="location-action">{% if l.iso3 %}<a class="button button-primary" href="{{ url_for('diagnostico', cc=l.cc, ano=ano, nome=l.nome, pais=l.pais, estado=l.estado, cidade=l.cidade) }}">Ver diagnóstico <span>↗</span></a>{% else %}<span class="muted-label">País não reconhecido</span>{% endif %}</div></article>
+  {% endfor %}
+  </div>
+{% endif %}
+</section>
+{% endblock %}

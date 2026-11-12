@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block conteudo %}
+<section class="empty-state error-page"><div class="empty-icon">!</div><span class="eyebrow">OPS, ALGO NÃO SAIU COMO ESPERADO</span><h1>{{ titulo }}</h1><p>{{ mensagem }}</p><a class="button button-primary" href="{{ url_for('index') }}">Voltar ao início <span>↗</span></a></section>
+{% endblock %}

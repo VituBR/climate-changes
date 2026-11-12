@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block titulo %}Cadastrar organização{% endblock %}
+{% block conteudo %}
+<section class="inner-hero small-hero"><a class="back-link" href="{{ url_for('ongs') }}">← Voltar às organizações</a><span class="eyebrow">AMPLIE NOSSA REDE</span><h1>Cadastre uma<br><em>organização.</em></h1><p>Compartilhe uma iniciativa ambiental para que mais pessoas possam conhecê-la.</p></section>
+<section class="content-section form-section">
+  {% for e in erros %}<div class="error-inline">{{ e }}</div>{% endfor %}
+  <form class="ong-form" method="post">
+    <div class="form-intro"><h2>Informações da organização</h2><p>Os campos marcados com * são obrigatórios.</p></div>
+    <div class="form-grid"><div class="field-group full-field"><label for="nome">NOME DA ONG *</label><input id="nome" name="nome" maxlength="120" required value="{{ f.get('nome','') }}" placeholder="Ex.: Instituto Ambiental"></div>
+    <div class="field-group full-field"><label for="descricao">DESCRIÇÃO *</label><textarea id="descricao" name="descricao" rows="4" maxlength="600" required placeholder="Conte um pouco sobre o trabalho da organização...">{{ f.get('descricao','') }}</textarea></div>
+    <div class="field-group"><label for="causas">CAUSAS</label><input id="causas" name="causas" maxlength="200" value="{{ f.get('causas','') }}" placeholder="Ex.: Clima, oceanos"></div>
+    <div class="field-group"><label for="regiao">REGIÃO DE ATUAÇÃO</label><input id="regiao" name="regiao" maxlength="200" value="{{ f.get('regiao','') }}" placeholder="Ex.: Brasil"></div>
+    <div class="field-group full-field"><label for="site">SITE OFICIAL</label><input id="site" type="url" name="site" maxlength="300" value="{{ f.get('site','') }}" placeholder="https://"></div>
+    <div class="field-group full-field"><label for="participacao">COMO PARTICIPAR</label><input id="participacao" name="participacao" maxlength="400" value="{{ f.get('participacao','') }}" placeholder="Ex.: Voluntariado, doações, campanhas..."></div></div>
+    <div class="form-actions"><a class="text-link" href="{{ url_for('ongs') }}">Cancelar</a><button class="button button-primary" type="submit">Cadastrar organização <span>↗</span></button></div>
+  </form>
+</section>
+{% endblock %}

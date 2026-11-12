@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Sobre os dados{% endblock %}
+{% block conteudo %}
+<section class="inner-hero small-hero"><a class="back-link" href="{{ url_for('index') }}">← Voltar ao início</a><span class="eyebrow">TRANSPARÊNCIA E CONFIANÇA</span><h1>De onde vêm<br><em>as informações?</em></h1><p>Entenda as fontes utilizadas pelo EcoAção e os limites dos dados apresentados.</p></section>
+<section class="content-section sources-section">
+  <article class="source-card"><div class="source-icon">▥</div><div><span class="eyebrow">DADOS DE EMISSÕES</span><h2>Climate TRACE</h2><p>Iniciativa que reúne estimativas de emissões de gases de efeito estufa. O EcoAção consulta esses dados para apresentar o total estimado por país e, quando disponível, a divisão por setores.</p><a class="text-link" href="https://climatetrace.org/" target="_blank" rel="noopener noreferrer">Conhecer a fonte <span>↗</span></a></div></article>
+  <article class="source-card"><div class="source-icon">⌖</div><div><span class="eyebrow">BUSCA DE LOCALIZAÇÃO</span><h2>OpenStreetMap / Nominatim</h2><p>Ferramenta utilizada para localizar cidades e regiões informadas na pesquisa e identificar o país correspondente.</p><a class="text-link" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">Conhecer o projeto <span>↗</span></a></div></article>
+  <article class="source-card"><div class="source-icon">♡</div><div><span class="eyebrow">INICIATIVAS AMBIENTAIS</span><h2>Diretório de organizações</h2><p>As organizações são armazenadas no banco de dados do próprio projeto. Um cadastro novo aparece como não verificado até que suas informações sejam conferidas no site oficial.</p></div></article>
+  <div class="limitations-panel"><span class="eyebrow">IMPORTANTE SABER</span><h2>Limitações dos dados</h2><ul><li>As emissões são apresentadas em nível nacional, não como medição específica da cidade pesquisada.</li><li>Os valores do Climate TRACE são estimativas, não medições diretas.</li><li>A API pode ficar temporariamente indisponível ou não fornecer a divisão por setor.</li><li>O diretório de ONGs depende das informações cadastradas e verificadas pela equipe.</li></ul></div>
+</section>
+{% endblock %}

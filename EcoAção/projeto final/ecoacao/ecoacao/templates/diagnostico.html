@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}Diagnóstico ambiental{% endblock %}
+{% block conteudo %}
+<section class="inner-hero small-hero diagnostic-hero"><a class="back-link" href="{{ url_for('index') }}">← Nova pesquisa</a><span class="eyebrow">DIAGNÓSTICO AMBIENTAL · {{ ano }}</span><h1>{{ local.cidade or local.pais or 'Sua região' }}<br><em>em perspectiva.</em></h1><p>{{ local.estado }}{% if local.estado and local.pais %}, {% endif %}{{ local.pais }} <span class="country-code">{{ local.iso3 }}</span></p></section>
+<section class="content-section diagnostic-content">
+{% if not r.ok %}
+  <div class="error-panel"><div class="panel-icon">!</div><div><h2>Não foi possível carregar os dados agora.</h2><p>A fonte Climate TRACE pode estar temporariamente indisponível. Tente novamente mais tarde.</p><details><summary>Detalhe técnico</summary><small>{{ r.erro }}</small></details></div></div>
+{% else %}
+  <div class="metric-card"><div><span class="eyebrow">EMISSÕES TOTAIS ESTIMADAS</span><div class="metric-number">{{ r.total_mt|num(1) }} <span>Mt CO₂e</span></div><p>Milhões de toneladas de dióxido de carbono equivalente em {{ ano }}.</p></div><div class="metric-decoration">↗</div></div>
+  {% if r.aviso %}<div class="info-panel"><span>ⓘ</span>{{ r.aviso }}</div>{% endif %}
+  {% if r.setores %}
+  <div class="data-panel"><div class="panel-heading"><div><span class="eyebrow">VISÃO POR SETOR</span><h2>De onde vêm as emissões?</h2></div><span class="unit-label">Mt CO₂e · participação</span></div>
+    <div class="sector-list">{% for s in r.setores %}<div class="sector-row"><div class="sector-meta"><strong>{{ s.setor }}</strong><span>{{ s.mt|num(1) }} Mt · {{ s.pct|num(1) }}%</span></div><div class="progress-track"><div class="progress-fill" style="width: {{ [s.pct, 100]|min }}%"></div></div></div>{% endfor %}</div>
+  </div>
+  {% endif %}
+  <p class="data-disclaimer">ⓘ Os valores apresentados são estimativas do Climate TRACE, não medições diretas. A disponibilidade da divisão por setor depende da consulta à API.</p>
+{% endif %}
+
+<div class="panel-heading org-heading"><div><span class="eyebrow">PESSOAS E INICIATIVAS</span><h2>Organizações que fazem a diferença.</h2><p>Conheça ONGs relacionadas à região consultada.</p></div><a class="text-link" href="{{ url_for('ongs') }}">Ver todas <span>↗</span></a></div>
+{% if ongs %}<div class="org-grid">{% for o in ongs %}<article class="org-card"><div class="org-card-top"><span class="org-icon">✳</span>{% if not o.verificada %}<span class="status-tag">Não verificada</span>{% else %}<span class="status-tag verified">Verificada</span>{% endif %}</div><h3>{{ o.nome }}</h3><p>{{ o.descricao }}</p>{% if o.site %}<a class="text-link" href="{{ o.site }}" target="_blank" rel="noopener noreferrer">Visitar site <span>↗</span></a>{% endif %}</article>{% endfor %}</div>
+{% else %}<div class="empty-inline"><p>Nenhuma ONG cadastrada para esta região.</p><a class="text-link" href="{{ url_for('ong_nova') }}">Cadastrar organização <span>↗</span></a></div>{% endif %}
+</section>
+{% endblock %}
